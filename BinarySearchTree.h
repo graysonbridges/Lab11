@@ -63,7 +63,9 @@ template < class T >
 void BinarySearchTree<T>::remove(String* sk)
 {
    //DO THIS
-
+   removeItem(TreeNode<T>*tNode, String* sk);
+   
+   //this might should call both removeItem and removeNode???
 
 
 }
@@ -72,8 +74,7 @@ template < class T >
 TreeNode<T>* BinarySearchTree<T>::removeItem(TreeNode<T>* tNode, String* sk)
 {
    //DO THIS
-
-
+ 
 
 }
 
@@ -100,11 +101,21 @@ TreeNode<T>* BinarySearchTree<T>::removeNode(TreeNode<T>* tNode)
    else 
    {
       //DO THIS
-
-
-
-
-
+	  TreeNode<T>* right = tNode->getRight();
+	  if(right != NULL)
+	  {
+		 T* temp = findLeftMost(right);
+		 tNode->setItem(temp);
+		 removeNode(tNode);
+		 //have to worry about changing links...but which links? Or is that taken care of in the recursion? 
+		 TreeNode<T>* subtree = removeLeftMost(tNode->getRight());
+	  }
+	  else
+	  {
+		   //need code to find inorder successor if right == NULL
+	  }
+	 
+	  
    }
 }
 
@@ -112,21 +123,29 @@ template < class T >
 T* BinarySearchTree<T>::findLeftMost(TreeNode<T>* tNode)
 {
    //DO THIS (use a while loop)
-
-
-
-
-
+	//This finds the inorder successor
+	while(tNode->getLeft() != NULL)
+	{
+		tNode = tNode->getLeft();
+		return tNode->getItem();
+	}
 }
 
 template < class T >
 TreeNode<T>* BinarySearchTree<T>::removeLeftMost(TreeNode<T>* tNode)
 {
    //DO THIS (recursion)
-
-
-
-
+   if(tNode->getLeft()==NULL)
+   {
+	   return tNode->getRight();
+   }
+   else
+   {
+	   //Have to reset links but always on the same side
+	   TreeNode<T>* sub = removeLeftMost(tNode->getLeft());
+	   tNode->setLeft(sub);
+	   return tNode;
+   }
 
 }
 
@@ -134,6 +153,7 @@ template < class T >
 T** BinarySearchTree<T>::toArray()
 {
    //DO THIS
+   //sorts the items in a bst, places the items in order in an array and returns the array
 
 
 
@@ -143,11 +163,12 @@ template < class T >
 T** BinarySearchTree<T>::treeSort(T** items, int num_itemss, int (*comp_items) (T* item_1, T* item_2), int (*comp_keys) (String* key, T* item))
 {
    //DO THIS
-
+	//calls toArray which returns a sorted array 
+	//sorts an array using a bst
+	
 
 
 }
-
 template < class T >
 int BinarySearchTree<T>::getHeight()
 {
